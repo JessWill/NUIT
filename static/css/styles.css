@@ -1,0 +1,282 @@
+/* Use Verdana for all text */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+button,
+input,
+footer,
+.search-bar {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+h3,h4 {
+    color: rgb(179, 24, 109);
+    font-weight: bold;
+}
+
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* navigation */
+.navbar {
+    background-color: transparent !important;
+    border: none;
+}
+
+/*  logo */
+.logo {
+    height: 100px;
+    width: auto;
+    max-width: 100%;
+    margin-left: 80px;
+    margin-right: 20px;
+}
+
+/* s filter button */
+.btn {
+    background-color: #000000;
+    color: white;
+    border: 2px solid rgb(125, 249, 255);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #b3186d;
+    border-color: white;
+    color: black;
+}
+
+/* Events */
+.event-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: black;
+    border: 1px solid;
+}
+
+.status-open {
+    color: green;
+    border-color: green;
+}
+
+.status-inactive {
+    color: grey;
+    border-color: grey;
+}
+
+.status-sold-out {
+    color: red;
+    border-color: red;
+}
+
+.status-cancelled {
+    color: white;
+    border-color: white;
+}
+
+
+.event-card {
+    background-color: #000000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.event-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* location  */
+.location {
+    color: #7DF9FF;
+    font-weight: bold;
+}
+
+/* username  */ 
+.username {
+    color: #7DF9FF;
+    font-weight: bold;
+}
+
+
+/* Background */
+
+body {
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    position: relative; 
+    z-index: 0; 
+}
+/* Darken the background using an overlay */
+body::before {
+    content: "";
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -1; 
+}
+
+/* Section Background */
+.section-background {
+    background-color: black;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
+
+/* Footer */
+.footer {
+    background-color: #000000 !important;
+    color: white !important;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #7DF9FF;
+    flex-shrink: 0;
+}
+
+.footer a {
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    color: #7DF9FF !important;
+}
+
+/* music tags */
+.music-tags {
+    background-color: #7DF9FF; 
+    border-radius: 10px; 
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box; 
+    height: 100%;
+}
+
+.pill-tag {
+    background-color: black;
+    color: #7DF9FF; 
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Modal  */
+.modal-content {
+    background-color: black;
+    color: white;
+}
+
+.btn-close {
+    filter: invert(1); 
+}
+
+.modal-body .form-label {
+    color: white; 
+}
+
+/*  comment cards */
+.comment-card {
+    background-color: black;
+    border: 2px solid rgb(179, 24, 109);
+    color: white;
+}
+
+.comment-card small {
+    color: lightgray;
+}
+
+/* Forms */
+.form-control {
+    background-color: rgb(54, 54, 54);   
+    color: #7DF9FF;        
+    border: 2px solid #7DF9FF;   
+    border-radius: 5px;         
+    padding: 10px;              
+}
+
+.form-label{
+    color: #b3186d;            
+}
+
+.form-control::placeholder {
+    color: #7DF9FF;              
+}
+
+.form-control:focus {
+    background-color: black;      
+    color: #7DF9FF;            
+    border-color: #b3186d;        
+    outline: none;          
+}
+
+.form-label {
+    font-weight: bold;                
+    color: #f0f0f0;                   
+    font-size: 1.1rem;               
+    margin-bottom: 10px;           
+    text-transform: uppercase;       
+    letter-spacing: 1px;             
+}
+
+.form-label:hover {
+    color: #7DF9FF;              
+}
+
+.form-label.required::after {
+    content: " *";                   
+    color: red;                      
+    font-weight: normal;
+}
+
+
+/* upload buttons */
+.upload-button {
+    background-color: black;     
+    color: #7DF9FF;               
+    border: 2px solid #7DF9FF;   
+    padding: 10px;                
+    font-size: 1rem;              
+    border-radius: 5px;           
+    width: 100%;                 
+}
+
+.upload-button:focus {
+    border-color: hotpink;      
+    outline: none;                
+}
