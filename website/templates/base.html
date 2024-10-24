@@ -49,7 +49,87 @@
             </button>
           </div>
           <div class="d-flex">
-            <button class="btn">SIGN UP</button>
+            <!-- SIGN UP Button triggers this modal -->
+            <button
+              type="button"
+              class="btn"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal"
+            >
+              SIGN UP
+            </button>
+
+            <!-- Modal for Registration -->
+            <div
+              class="modal fade"
+              id="registerModal"
+              tabindex="-1"
+              aria-labelledby="registerModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div
+                  class="modal-content"
+                  style="background-color: black; color: white"
+                >
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">
+                      Register
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                      style="filter: invert(1)"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" action="{{ url_for('auth.register') }}">
+                      {{ form.hidden_tag() }}
+                      <div class="mb-3">
+                        {{ form.user_name.label(class="form-label") }} {{
+                        form.user_name(class="form-control") }} {% for error in
+                        form.user_name.errors %}
+                        <small class="text-danger">{{ error }}</small>
+                        {% endfor %}
+                      </div>
+                      <div class="mb-3">
+                        {{ form.email.label(class="form-label") }} {{
+                        form.email(class="form-control") }} {% for error in
+                        form.email.errors %}
+                        <small class="text-danger">{{ error }}</small>
+                        {% endfor %}
+                      </div>
+                      <div class="mb-3">
+                        {{ form.password.label(class="form-label") }} {{
+                        form.password(class="form-control") }} {% for error in
+                        form.password.errors %}
+                        <small class="text-danger">{{ error }}</small>
+                        {% endfor %}
+                      </div>
+                      <div class="mb-3">
+                        {{ form.confirm.label(class="form-label") }} {{
+                        form.confirm(class="form-control") }} {% for error in
+                        form.confirm.errors %}
+                        <small class="text-danger">{{ error }}</small>
+                        {% endfor %}
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        {{ form.submit(class="btn btn-primary") }}
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
@@ -77,7 +157,7 @@
     {% block content %} {% endblock %}
 
     <footer class="footer bg-dark text-white text-center py-3 mt-auto">
-        <p>2024 NUIT - Event Management. Jessica williams - N10194363</p>
+      <p>2024 NUIT - Event Management. Jessica williams - N10194363</p>
     </footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
