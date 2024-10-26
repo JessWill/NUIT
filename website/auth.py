@@ -27,7 +27,7 @@ def register():
         return redirect(url_for('main.index'))
 
     print(form.errors)
-    flash('Registration was not Successful ):', 'error')
+    flash('Registration was not Successful ):', 'danger')
     return redirect(url_for('main.index'))
 
 # Login route

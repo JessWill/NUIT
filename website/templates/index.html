@@ -11,9 +11,11 @@
                 </div>
 
                 <div class="col-md-6 text-end">
-                    <a href="{{ url_for('main.create_event') }}">
-                        <button class="btn btn-create me-3">Create Event + </button>
-                    </a>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.create_event') }}">
+                            <button class="btn btn-create me-3">Create Event +</button>
+                        </a>
+                    {% endif %}
                     <div class="dropdown d-inline">
                         <button class="btn dropdown-toggle" type="button" id="eventCategoryDropdown"
                             data-bs-toggle="dropdown" aria-expanded="false">

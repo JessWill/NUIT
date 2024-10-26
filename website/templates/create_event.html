@@ -8,119 +8,85 @@
       <div class="col-md-6">
         <h1>CREATE EVENT</h1>
       </div>
+    </div>
 
+    <form
+      method="POST"
+      action="{{ url_for('main.create_event') }}"
+      enctype="multipart/form-data"
+    >
       <div class="col-md-6 d-flex justify-content-end">
-        <button class="btn btn-filter">Publish Event</button>
+        {{ form.submit(class="btn btn-primary w-100") }}
       </div>
-    </div>
-
-    <!--  Image, Description, and Tags -->
-    <div class="row d-flex align-items-stretch mt-4">
-      <div
-        class="col-md-4 d-flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          src="static/img/defaultpic.jpg"
-          alt="Event Image"
-          class="img-fluid"
-          style="max-width: 50%; border-radius: 10px"
-        />
-
-        <div class="mt-3" style="width: 100%; text-align: center">
-          <input
-            type="file"
-            class="upload-button"
-            id="eventimage"
-            name="eventimage"
-            required
-          />
-        </div>
-
+      ]
+      <!--  Image, Description, and Tags -->
+      <div class="row d-flex align-items-stretch mt-4">
         <div
-          class="mb-3 mt-4 d-flex align-items-center justify-content-between"
-          style="width: 100%"
+          class="col-md-4 d-flex flex-column justify-content-center align-items-center"
         >
-          <label for="ticketQuantity" class="form-label">Ticket Quantity</label>
-          <input
-            type="number"
-            class="form-control"
-            id="ticketQuantity"
-            name="ticketQuantity"
-            min="1"
-            value="1"
-            style="max-width: 100px"
-          />
-        </div>
-      </div>
+          <!--  Image Upload -->
+          <div
+            class="col-md-4 d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="{{ url_for('static', filename='img/defaultpic.jpg') }}"
+              alt="Event Image"
+              class="img-fluid"
+              style="max-width: 50%; border-radius: 10px"
+            />
+            <div class="mt-3" style="width: 100%; text-align: center">
+              {{ form.image(class="form-control") }}
+            </div>
+          </div>
 
-      <!-- Description  -->
-      <div class="col-md-5 d-flex flex-column">
-        <form>
-          <div class="mb-3">
-            <label for="eventname" class="form-label">Event Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="eventname"
-              name="eventname"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input
-              type="text"
-              class="form-control"
-              id="location"
-              name="eventname"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="eventDateTime" class="form-label"
-              >Event Date and Time</label
+          <div
+            class="mb-3 mt-4 d-flex align-items-center justify-content-between"
+            style="width: 100%"
+          >
+            <label for="ticketQuantity" class="form-label"
+              >Ticket Quantity</label
             >
-            <input
-              type="datetime-local"
-              class="form-control"
-              id="eventDateTime"
-              name="eventDateTime"
-              required
-            />
+            {{ form.available_tickets.label(class="form-label") }} {{
+            form.available_tickets(class="form-control") }}
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label for="eventDateTime" class="form-label">Description</label>
-            <textarea
-              class="form-control"
-              id="description"
-              name="commentText"
-              rows="3"
-              required
-            ></textarea>
-          </div>
-        </form>
-      </div>
+        <!-- Description  -->
+        <div class="col-md-5 d-flex flex-column">
+          <form>
+            <div class="mb-3">
+              <label for="eventname" class="form-label">Event Name</label>
+              {{ form.event_name.label(class="form-label") }} {{
+              form.event_name(class="form-control") }}
+            </div>
+            <div class="mb-3">
+              <label for="location" class="form-label">Location</label>
+              {{ form.location.label(class="form-label") }} {{
+              form.location(class="form-control") }}
+            </div>
+            <div class="mb-3">
+              <label for="eventDateTime" class="form-label"
+                >Event Date and Time</label
+              >
+              {{ form.date_time.label(class="form-label") }} {{
+              form.date_time(class="form-control") }}
+            </div>
 
-      <!-- Tags -->
-      <div
-        class="col-md-3 d-flex flex-column justify-content-start p-3 align-items-stretch"
-      >
-        <label for="eventname" class="form-label">Add Categories</label>
-        <div
-          class="music-tags d-flex flex-column justify-content-start"
-          style="background-color: #7df9ff; border-radius: 10px; padding: 15px"
-        >
-          <input
-            type="text"
-            class="form-control"
-            id="customCategories"
-            name="customCategories"
-            placeholder="e.g., Techno, House, Disco"
-          />
+            <div class="mb-3">
+              <label for="eventDateTime" class="form-label">Description</label>
+              {{ form.description.label(class="form-label") }} {{
+              form.description(class="form-control") }}
+            </div>
+          </form>
+        </div>
+
+        <!-- Categories -->
+        <div class="col-md-3">
+          {{ form.category.label(class="form-label") }} {{
+          form.category(class="form-select") }}
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 {% endblock %}

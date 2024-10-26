@@ -39,17 +39,17 @@
           </form>
 
           {% if current_user.is_authenticated %}
-          <div class="d-flex">
+          <div class="d-flex ms-2">
             <a href="{{ url_for('main.booking_history') }}" class="btn"
               >Booking History</a
             >
           </div>
-          <div class="d-flex">
+          <div class="d-flex ms-2">
             <a href="{{ url_for('auth.logout') }}" class="btn">Log Out</a>
           </div>
 
           {% else %}
-          <div class="d-flex">
+          <div class="d-flex ms-2">
             <button
               type="button"
               class="btn btn-filter"
@@ -59,7 +59,7 @@
               Login
             </button>
           </div>
-          <div class="d-flex">
+          <div class="d-flex ms-2">
             <button
               type="button"
               class="btn"
@@ -71,6 +71,8 @@
             {% endif %}
 
             <!-- Registration Modal -->
+            {% if register_form is defined %}
+            {{ register_form.hidden_tag() }}
             <div
               class="modal fade"
               id="registerModal"
@@ -102,7 +104,6 @@
                         {{ register_form.first_name.label(class="form-label") }}
                         {{ register_form.first_name(class="form-control") }}
                       </div>
-                      <!-- Add other registration fields here using register_form instead of form -->
                       <div class="modal-footer">
                         <button
                           type="button"
@@ -118,8 +119,11 @@
                 </div>
               </div>
             </div>
+            {% endif %}
 
             <!-- Login Modal -->
+            {% if login_form is defined %}
+            {{ login_form.hidden_tag() }}
             <div
               class="modal fade"
               id="loginModal"
@@ -168,6 +172,7 @@
                 </div>
               </div>
             </div>
+            {% endif %}
           </div>
         </div>
       </nav>

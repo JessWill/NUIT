@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from .forms import LoginForm, RegistrationForm 
+from .forms import LoginForm, RegistrationForm, EventForm
 
 main_bp = Blueprint('main', __name__)
 
@@ -11,7 +11,8 @@ def index():
 
 @main_bp.route('/create-event')
 def create_event():
-    return render_template('create_event.html')
+    event_form = EventForm()
+    return render_template('create_event.html', event_form=event_form)
 
 @main_bp.route('/event-details')
 def event_details():

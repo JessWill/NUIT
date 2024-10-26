@@ -280,3 +280,27 @@ body::before {
     border-color: hotpink;      
     outline: none;                
 }
+
+/* flashes */
+
+.alert {
+    max-width: 500px;
+    margin: 10px auto; 
+    background-color: #000000 !important;
+    color: white !important;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #7DF9FF;
+    flex-shrink: 0;
+  }
+  
+ .alert-dismissible .btn-close {
+    filter: invert(1); 
+    opacity: 0.8; 
+}
+
+.alert-dismissible .btn-close:hover {
+    background-color: #b3186d;
+    border-color: white;
+    color: black;
+}
