@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template
-from .forms import RegisterForm
+from .forms import LoginForm, RegistrationForm 
 
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def index():
-    rform = RegisterForm() 
-    return render_template('index.html', form=rform)
+    register_form = RegistrationForm () 
+    login_form = LoginForm()
+    return render_template('index.html', register_form=register_form, login_form=login_form)
 
 @main_bp.route('/create-event')
 def create_event():

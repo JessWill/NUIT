@@ -38,6 +38,17 @@
             />
           </form>
 
+          {% if current_user.is_authenticated %}
+          <div class="d-flex">
+            <a href="{{ url_for('main.booking_history') }}" class="btn"
+              >Booking History</a
+            >
+          </div>
+          <div class="d-flex">
+            <a href="{{ url_for('auth.logout') }}" class="btn">Log Out</a>
+          </div>
+
+          {% else %}
           <div class="d-flex">
             <button
               type="button"
@@ -49,7 +60,6 @@
             </button>
           </div>
           <div class="d-flex">
-            <!-- SIGN UP Button triggers this modal -->
             <button
               type="button"
               class="btn"
@@ -58,8 +68,9 @@
             >
               SIGN UP
             </button>
+            {% endif %}
 
-            <!-- Modal for Registration -->
+            <!-- Registration Modal -->
             <div
               class="modal fade"
               id="registerModal"
@@ -86,34 +97,61 @@
                   </div>
                   <div class="modal-body">
                     <form method="POST" action="{{ url_for('auth.register') }}">
-                      {{ form.hidden_tag() }}
+                      {{ register_form.hidden_tag() }}
                       <div class="mb-3">
-                        {{ form.user_name.label(class="form-label") }} {{
-                        form.user_name(class="form-control") }} {% for error in
-                        form.user_name.errors %}
-                        <small class="text-danger">{{ error }}</small>
-                        {% endfor %}
+                        {{ register_form.first_name.label(class="form-label") }}
+                        {{ register_form.first_name(class="form-control") }}
+                      </div>
+                      <!-- Add other registration fields here using register_form instead of form -->
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        {{ register_form.submit(class="btn btn-primary") }}
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Login Modal -->
+            <div
+              class="modal fade"
+              id="loginModal"
+              tabindex="-1"
+              aria-labelledby="loginModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div
+                  class="modal-content"
+                  style="background-color: black; color: white"
+                >
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                      style="filter: invert(1)"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" action="{{ url_for('auth.login') }}">
+                      {{ login_form.hidden_tag() }}
+                      <div class="mb-3">
+                        {{ login_form.email.label(class="form-label") }} {{
+                        login_form.email(class="form-control") }}
                       </div>
                       <div class="mb-3">
-                        {{ form.email.label(class="form-label") }} {{
-                        form.email(class="form-control") }} {% for error in
-                        form.email.errors %}
-                        <small class="text-danger">{{ error }}</small>
-                        {% endfor %}
-                      </div>
-                      <div class="mb-3">
-                        {{ form.password.label(class="form-label") }} {{
-                        form.password(class="form-control") }} {% for error in
-                        form.password.errors %}
-                        <small class="text-danger">{{ error }}</small>
-                        {% endfor %}
-                      </div>
-                      <div class="mb-3">
-                        {{ form.confirm.label(class="form-label") }} {{
-                        form.confirm(class="form-control") }} {% for error in
-                        form.confirm.errors %}
-                        <small class="text-danger">{{ error }}</small>
-                        {% endfor %}
+                        {{ login_form.password.label(class="form-label") }} {{
+                        login_form.password(class="form-control") }}
                       </div>
                       <div class="modal-footer">
                         <button
@@ -123,7 +161,7 @@
                         >
                           Close
                         </button>
-                        {{ form.submit(class="btn btn-primary") }}
+                        {{ login_form.submit(class="btn btn-primary") }}
                       </div>
                     </form>
                   </div>
