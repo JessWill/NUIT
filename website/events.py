@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, current_app
-from .forms import EventForm, CommentForm
+from .forms import EventForm, CommentForm, BookingForm
 from . import db
-from .models import Event, Comment  
+from .models import Event, Comment, Booking
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
@@ -49,8 +49,9 @@ def create_event():
 def event_details(event_id):
     event = Event.query.get_or_404(event_id)
     comments = Comment.query.filter_by(event_id=event_id).all()
-    comment_form = CommentForm()  
-    return render_template('event_details.html', event=event, comments=comments, comment_form=comment_form)
+    comment_form = CommentForm()
+    booking_form = BookingForm()  
+    return render_template('event_details.html', event=event, comments=comments, comment_form=comment_form, booking_form=booking_form)
 
 # Comment on an event
 @event_bp.route('/event-details/<int:event_id>/add-comment', methods=['POST'])
@@ -70,3 +71,24 @@ def post_comment(event_id):
         return redirect(url_for('event_bp.event_details', event_id=event_id))
     comments = Comment.query.filter_by(event_id=event_id).all()
     return render_template('event_details.html', event=event, comments=comments, comment_form=form)
+
+# book  an event
+@event_bp.route('/event-details/<int:event_id>/book-event', methods=['POST'])
+@login_required
+def book_event(event_id):
+    form = BookingForm()
+    if form.validate_on_submit():
+        new_booking = Booking(
+             event_id =event_id,
+             user_id=current_user.id,
+             quantity=form.quantity.data,
+        )
+        db.session.add(new_booking)
+        db.session.commit()
+
+        flash("You're booked in 👍", "Success")
+        return redirect(url_for('event_bp.event_details', event_id=event_id))
+    else:
+         flash("Booking Failed 😭", "danger")
+         print("Form errors:", form.errors)
+         return redirect(url_for('event_bp.event_details', event_id=event_id))

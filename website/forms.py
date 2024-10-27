@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectMultipleField, DateTimeField, IntegerField, FileField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectMultipleField, DateTimeField, IntegerField, FileField, HiddenField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
 # creates the login information
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired(), Email()])
     password = PasswordField("Password", validators=[InputRequired()])
+    
     submit = SubmitField("Login")
 
  # the registration form 
@@ -48,3 +49,11 @@ class EventForm(FlaskForm):
 class CommentForm(FlaskForm):
     text = TextAreaField("Comment", validators=[InputRequired(), Length(max=500)])
     submit = SubmitField("Post")
+
+# Booking Form
+class BookingForm(FlaskForm):
+    quantity = IntegerField("Ticket Quantity", validators=[InputRequired(), NumberRange(min=1)])
+    user_id = HiddenField("UserID", validators=[InputRequired()])
+    event_id = HiddenField("EventID", validators=[InputRequired()])
+
+    submit = SubmitField("Book Now")

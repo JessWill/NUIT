@@ -128,47 +128,27 @@
           
           <!-- Booking Form Section -->
           <div class="col-md-6 pe-4"> 
-            <form>              
-              <!-- First Name -->
+            <form method="POST" action="{{ url_for('event_bp.book_event', event_id=event.id) }}">
+              {{ booking_form.csrf_token }}
+              
+              <!--Hidden user id for the booking form-->
+              <input type="hidden" name="user_id" value="{{ current_user.id }}">
+              <!--Hidden event id for booking form-->
+              <input type="hidden" name="event_id" value="{{ event.id }}">
+
+              <!-- tickets -->
               <div class="mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="first_name" 
-                       value="{{ current_user.first_name }}" required>
+                {{ booking_form.quantity.label(class="form-label") }}
+                {{ booking_form.quantity(class="form-control", id="ticketQuantity", min="1", value="1") }}
               </div>
               
-              <!-- Last Name -->
-              <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="last_name" 
-                       value="{{ current_user.last_name }}" required>
-              </div>
-              
-              <!-- Email -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" 
-                       value="{{ current_user.email }}" required>
-              </div>
-              
-              <!-- Contact Number -->
-              <div class="mb-3">
-                <label for="contactNumber" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contactNumber" name="contact_number" 
-                       value="{{ current_user.contact_number }}" required>
-              </div>
-              
-              <!-- Tickets -->
-              <div class="mb-3">
-                <label for="ticketQuantity" class="form-label">General Admission Tickets</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="ticketQuantity"
-                  name="ticketQuantity"
-                  min="1"
-                  value="1"
-                />
-              </div>
+              <!--Submit Button-->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Book Now</button>
+              </div>        
             </form>
           </div>
           
@@ -190,14 +170,6 @@
           
         </div>
       </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="submit" class="btn btn-primary">Book Now</button>
-      </div>
-      
     </div>
   </div>
 </div>
