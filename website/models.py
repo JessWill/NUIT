@@ -8,9 +8,10 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+
+    # Relationships
     comments = db.relationship('Comment', backref='user', lazy=True)
     bookings = db.relationship('Booking', backref='user', lazy=True)
-
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +23,7 @@ class Event(db.Model):
     categories = db.Column(db.String(200), nullable=False)
     image = db.Column(db.String(100), nullable=True)  
 
+    # Relationships
     comments = db.relationship('Comment', backref='event', lazy=True)
     bookings = db.relationship('Booking', backref='event', lazy=True)
 
@@ -31,14 +33,15 @@ class Comment(db.Model):
     text = db.Column(db.String(500), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
+    # Foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-
 
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     booking_date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
+    # Foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)

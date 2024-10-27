@@ -6,10 +6,11 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
 
+# This file is dedicated to actions performed on events, such as creating an event, viewing specific events, posting comments and booking. 
 
 event_bp = Blueprint('event_bp', __name__)
 
-# Creating an event
+# create an event
 @event_bp.route('/create-event', methods=['GET', 'POST'])
 @login_required
 def create_event():
@@ -39,19 +40,11 @@ def create_event():
         flash('Event created successfully!', 'success')
 
         #redirect to the event details page of the newly created event
-        return redirect(url_for('event_bp.event_details', event_id=new_event.id))
+        return redirect(url_for('main.event_details', event_id=new_event.id))
     else:
             print("Form is invalid:", event_form.errors)
     return render_template('create_event.html', event_form=event_form) 
 
-#View an event
-@event_bp.route('/event-details/<int:event_id>', methods=['GET', 'POST'])
-def event_details(event_id):
-    event = Event.query.get_or_404(event_id)
-    comments = Comment.query.filter_by(event_id=event_id).all()
-    comment_form = CommentForm()
-    booking_form = BookingForm()  
-    return render_template('event_details.html', event=event, comments=comments, comment_form=comment_form, booking_form=booking_form)
 
 # Comment on an event
 @event_bp.route('/event-details/<int:event_id>/add-comment', methods=['POST'])
@@ -68,7 +61,7 @@ def post_comment(event_id):
         db.session.add(new_comment)
         db.session.commit()
         flash("Comment Posted 👍", "success")
-        return redirect(url_for('event_bp.event_details', event_id=event_id))
+        return redirect(url_for('main.event_details', event_id=event_id))
     comments = Comment.query.filter_by(event_id=event_id).all()
     return render_template('event_details.html', event=event, comments=comments, comment_form=form)
 
@@ -87,8 +80,8 @@ def book_event(event_id):
         db.session.commit()
 
         flash("You're booked in 👍", "Success")
-        return redirect(url_for('event_bp.event_details', event_id=event_id))
+        return redirect(url_for('main.event_details', event_id=event_id))
     else:
          flash("Booking Failed 😭", "danger")
          print("Form errors:", form.errors)
-         return redirect(url_for('event_bp.event_details', event_id=event_id))
+         return redirect(url_for('main.event_details', event_id=event_id))
