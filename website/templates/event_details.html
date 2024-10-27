@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-{% from "bootstrap5/form.html" import render_form %}
+{% extends "base.html" %} {% from "bootstrap5/form.html" import render_form %}
 {% block content %}
 
 <!-- Main  -->
@@ -28,11 +27,11 @@
     <div class="row d-flex align-items-stretch mt-4">
       <div class="col-md-4 d-flex justify-content-center align-items-stretch">
         <img
-          src="{{ url_for('static', filename='img/' + event.image) }}"
-          alt="Event Image"
-          class="img-fluid"
-          style="max-width: 100%; border-radius: 10px"
-        />
+        src="{{ url_for('static', filename=event.image.replace('website/static/', '')) }}"
+        alt="Event Image"
+        class="img-fluid"
+        style="max-width: 100%; border-radius: 10px"
+      />      
       </div>
 
       <!-- Description  -->
@@ -48,17 +47,17 @@
             height: 100%;
           "
         >
-          <p style="text-align: justify">
-            {{ event.description }}
-          </p>
+          <p style="text-align: justify">{{ event.description }}</p>
         </div>
       </div>
 
       <!-- Categories -->
-      <div class="col-md-3 d-flex flex-column justify-content-start p-3 align-items-stretch">
+      <div
+        class="col-md-3 d-flex flex-column justify-content-start p-3 align-items-stretch"
+      >
         <div class="music-tags d-flex flex-column justify-content-start">
-          {% for category in event.category.split(',') %}
-            <span class="pill-tag">{{ category }}</span>
+          {% for category in event.categories.split(',') %}
+          <span class="pill-tag">{{ category }}</span>
           {% endfor %}
         </div>
       </div>
@@ -66,34 +65,28 @@
 
     <!-- Comments Section -->
     <div class="row mt-5">
-      <div class="col-md-12">
-        <h3>Comments</h3>
-        <div class="mb-4">
-          {% for comment in comments %}
-            <div class="card p-3 mb-3 comment-card">
-              <p class="username">@{{ comment.user.username }}</p>
+      <h3>Comments</h3>
+      {% for comment in comments %}
+          <div class="card p-3 mb-3 comment-card">
+            <p class="username">{{ comment.user.first_name }} {{ comment.user.last_name }}</p>
               <p>{{ comment.text }}</p>
               <small>Posted on {{ comment.created_at.strftime('%B %d, %Y') }}</small>
-            </div>
-          {% else %}
-            <p>No comments yet. Be the first to comment!</p>
-          {% endfor %}
+          </div>
+      {% endfor %}
         </div>
 
         <!-- Comment Form -->
         <h4>Leave a Comment</h4>
-        <form method="POST" action="{{ url_for('event_bp.add_comment', event_id=event.id) }}">
+        <form
+          method="POST"
+          action="{{ url_for('event_bp.post_comment', event_id=event.id) }}"
+        >
+          {{ comment_form.hidden_tag() }}
           <div class="mb-3">
-            <label for="commentText" class="form-label">Your Comment</label>
-            <textarea
-              class="form-control"
-              id="commentText"
-              name="commentText"
-              rows="3"
-              required
-            ></textarea>
+            {{ comment_form.text.label(class="form-label") }} {{
+              comment_form.text(class="form-control", rows="3") }}
           </div>
-          <button type="submit" class="btn btn-filter">Post Comment</button>
+          {{ comment_form.submit(class="btn btn-primary") }}
         </form>
       </div>
     </div>

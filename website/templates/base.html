@@ -24,7 +24,7 @@
           class="container-fluid d-flex justify-content-between align-items-center"
         >
           <a class="navbar-brand" href="{{ url_for('main.index') }}">
-            <img src="static/img/logo.png" alt="Nuit Logo" class="logo" />
+            <img src="website/static/img/logo.png" alt="Nuit Logo" class="logo" />
           </a>
 
           <!--  search bar -->
@@ -203,15 +203,6 @@
       <div class="container-fluid">
         {% with messages = get_flashed_messages() %} {% if messages %} {% for
         message in get_flashed_messages() %}
-        <div class="alert alert-warning">
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="close"
-          >
-            x
-          </button>
           {{message}}
         </div>
         {% endfor %} {% endif %} {% endwith %}

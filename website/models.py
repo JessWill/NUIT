@@ -20,7 +20,7 @@ class Event(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.Text, nullable=True)  
     available_tickets = db.Column(db.Integer, nullable=False)
-    categories = db.Column(db.String(200), nullable=True)
+    categories = db.Column(db.String(200), nullable=False)
     image = db.Column(db.String(100), nullable=True)  
 
     comments = db.relationship('Comment', backref='event', lazy=True)

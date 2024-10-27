@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
-from .forms import EventForm
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
+from .forms import EventForm, CommentForm
 from . import db
-from .models import Event
-from flask_login import login_required
+from .models import Event, Comment  
+from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
+import os
+
 
 event_bp = Blueprint('event_bp', __name__)
 
@@ -12,7 +15,13 @@ event_bp = Blueprint('event_bp', __name__)
 def create_event():
     event_form = EventForm()
     if event_form.validate_on_submit():
-        selected_categories = ', '.join(event_form.category.data)
+        selected_categories = ', '.join(event_form.categories.data)
+
+        #save file to img folder
+        file = event_form.image.data
+        file_name = secure_filename(file.filename)
+        file_path= os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
+        file.save(file_path)
 
         new_event = Event(
             name=event_form.event_name.data,
@@ -20,7 +29,7 @@ def create_event():
             date=event_form.date_time.data,
             description=event_form.description.data,
             available_tickets=event_form.available_tickets.data,
-            image=event_form.image.data,
+            image=file_path,
             categories=selected_categories 
         )
 
@@ -40,4 +49,24 @@ def create_event():
 def event_details(event_id):
     event = Event.query.get_or_404(event_id)
     comments = Comment.query.filter_by(event_id=event_id).all()
-    return render_template('event_details.html', event=event, comments=comments)
+    comment_form = CommentForm()  
+    return render_template('event_details.html', event=event, comments=comments, comment_form=comment_form)
+
+# Comment on an event
+@event_bp.route('/event-details/<int:event_id>/add-comment', methods=['POST'])
+@login_required
+def post_comment(event_id):
+    event = Event.query.get_or_404(event_id)
+    form = CommentForm()
+    if form.validate_on_submit():
+        new_comment = Comment(
+            text=form.text.data,
+            event_id=event_id,
+            user_id=current_user.id
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        flash("Comment Posted 👍", "success")
+        return redirect(url_for('event_bp.event_details', event_id=event_id))
+    comments = Comment.query.filter_by(event_id=event_id).all()
+    return render_template('event_details.html', event=event, comments=comments, comment_form=form)

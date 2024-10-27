@@ -29,6 +29,10 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
+    #upload folder path
+    UPLOAD_FOLDER = 'website/static/img'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
     # create a user loader function takes userid and returns User
     # Importing inside the create_app function avoids circular references
     from .models import User

@@ -29,7 +29,7 @@ class EventForm(FlaskForm):
     description = TextAreaField("Description", validators=[InputRequired()])
     available_tickets = IntegerField("Available Tickets", validators=[InputRequired(), NumberRange(min=1, message="Must be a positive number")])
     image = FileField("Image", validators=[InputRequired()])
-    category = SelectMultipleField("Category", choices=[
+    categories= SelectMultipleField("categories", choices=[
         ('House', 'House'), 
         ('Techno', 'Techno'), 
         ('Trance', 'Trance'), 
@@ -43,3 +43,8 @@ class EventForm(FlaskForm):
     ], validators=[InputRequired()])
 
     submit = SubmitField("Create Event")
+
+# Comments form
+class CommentForm(FlaskForm):
+    text = TextAreaField("Comment", validators=[InputRequired(), Length(max=500)])
+    submit = SubmitField("Post")
