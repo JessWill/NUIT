@@ -9,7 +9,7 @@
     <div class="row">
       {% for event in events %}
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100 event-card">
+        <div class="event-card mb-4">
           <!-- Event Image -->
           <img
             src="{{ url_for('static', filename=event.image.replace('website/static/', '')) }}"
@@ -26,7 +26,11 @@
             <p class="card-text">
               <strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d %H:%M') }}
             </p>
-            <p class="card-text">{{ event.description }}</p>
+            <a
+              href="{{ url_for('event_bp.update_event', event_id=event.id) }}"
+              class="btn btn-primary"
+              >Update Event</a
+            >
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ def create_event():
     event_form = EventForm()
     return render_template('create_event.html', event_form=event_form)
 
+
 #View event detail page
 @main_bp.route('/event-details/<int:event_id>', methods=['GET', 'POST'])
 def event_details(event_id):

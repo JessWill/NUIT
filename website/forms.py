@@ -43,7 +43,7 @@ class EventForm(FlaskForm):
         ('Chillwave', 'Chillwave')
     ], validators=[InputRequired()])
 
-    submit = SubmitField("Create Event")
+    submit = SubmitField("Confirm")
 
 # Comments form
 class CommentForm(FlaskForm):

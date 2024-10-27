@@ -10,7 +10,7 @@
       <!-- Event Listings -->
       {% for booking in bookings %}
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100 event-card">
+        <div class="event-card mb-4">
           <!-- Event Image -->
           <img
             src="{{ url_for('static', filename=booking.event.image.replace('website/static/', '')) }}"

@@ -86,3 +86,39 @@ def book_event(event_id):
          flash("Booking Failed 😭", "danger")
          print("Form errors:", form.errors)
          return redirect(url_for('main.event_details', event_id=event_id))
+
+# Update  event
+@event_bp.route('/update-event/<int:event_id>', methods=['GET', 'POST'])
+@login_required
+def update_event(event_id):
+    event = Event.query.get_or_404(event_id)
+
+    # Check authoristion
+    if event.creator_id != current_user.id:
+        flash("You can only edit your own events, naughty! 😡", "danger")
+        return redirect(url_for('main.index'))
+
+    event_form = EventForm(obj=event)  
+
+    if event_form.validate_on_submit():
+
+        # Save file to img folder if it's being updated
+        if event_form.image.data:
+            file = event_form.image.data
+            file_name = secure_filename(file.filename)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
+            file.save(file_path)
+            event.image = f'website/static/img/{file_name}'  # Assign only the file path
+
+        event.name = event_form.event_name.data
+        event.location = event_form.location.data
+        event.date = event_form.date_time.data
+        event.description = event_form.description.data
+        event.available_tickets = event_form.available_tickets.data
+        event.categories = ', '.join(event_form.categories.data)
+
+        db.session.commit()
+        flash("Event updated successfully! 💖", "success")
+        return redirect(url_for('event_bp.update_event', event_id=event.id))
+
+    return render_template('update_event.html', event_form=event_form, event=event)
