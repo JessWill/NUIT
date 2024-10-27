@@ -16,7 +16,8 @@ def create_event():
 
 @main_bp.route('/event-details')
 def event_details():
-    return render_template('event_details.html')
+    login_form = LoginForm()
+    return render_template('event_details.html', login_form=login_form)
 
 @main_bp.route('/booking_history')
 def booking_history():

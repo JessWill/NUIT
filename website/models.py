@@ -18,7 +18,10 @@ class Event(db.Model):
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    category = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=True)  
+    available_tickets = db.Column(db.Integer, nullable=False)
+    categories = db.Column(db.String(200), nullable=True)
+    image = db.Column(db.String(100), nullable=True)  
 
     comments = db.relationship('Comment', backref='event', lazy=True)
     bookings = db.relationship('Booking', backref='event', lazy=True)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, DateTimeField, IntegerField, FileField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectMultipleField, DateTimeField, IntegerField, FileField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
 # creates the login information
@@ -14,7 +14,10 @@ class RegistrationForm (FlaskForm):
     last_name = StringField("Last Name", validators=[InputRequired()])
     email = StringField("Email", validators=[InputRequired(), Email()])
     password = PasswordField("Password", validators=[InputRequired()])
-    contact_number = IntegerField("Contact Number", validators=[InputRequired()])
+    contact_number = StringField("Contact Number", validators=[
+        InputRequired(), 
+        Length(min=10, max=15)
+    ])
     street_address = StringField("Street Address", validators=[InputRequired()])
     submit = SubmitField("Register")
 
@@ -26,7 +29,7 @@ class EventForm(FlaskForm):
     description = TextAreaField("Description", validators=[InputRequired()])
     available_tickets = IntegerField("Available Tickets", validators=[InputRequired(), NumberRange(min=1, message="Must be a positive number")])
     image = FileField("Image", validators=[InputRequired()])
-    category = SelectField("Category", choices=[
+    category = SelectMultipleField("Category", choices=[
         ('House', 'House'), 
         ('Techno', 'Techno'), 
         ('Trance', 'Trance'), 

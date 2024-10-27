@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% from "bootstrap5/form.html" import render_form %}
+{% extends "base.html" %}
+{% from "bootstrap5/form.html" import render_form %}
 {% block content %}
 
 <!-- Main  -->
@@ -6,12 +7,12 @@
   <div class="section-background">
     <div class="row d-flex justify-content-between align-items-center">
       <div class="col-md-6">
-        <h1>Electronic Dance Night</h1>
-        <p class="location">Bar Le Ritz PDB, Montreal</p>
-        <p>September 22, 2024 - 8:00 PM to 2:00 AM</p>
+        <h1>{{ event.name }}</h1>
+        <p class="location">{{ event.location }}</p>
+        <p>{{ event.date.strftime('%B %d, %Y - %I:%M %p') }}</p>
       </div>
 
-      <!-- Book Tickets,  triggers a modal for booking tickets-->
+      <!-- Book Tickets Button -->
       <div class="col-md-6 d-flex justify-content-end">
         <button
           class="btn btn-filter"
@@ -23,11 +24,11 @@
       </div>
     </div>
 
-    <!--  Image, description, and tags -->
+    <!-- Image, Description, and Tags -->
     <div class="row d-flex align-items-stretch mt-4">
       <div class="col-md-4 d-flex justify-content-center align-items-stretch">
         <img
-          src="static/img/event1.jpg"
+          src="{{ url_for('static', filename='img/' + event.image) }}"
           alt="Event Image"
           class="img-fluid"
           style="max-width: 100%; border-radius: 10px"
@@ -48,62 +49,40 @@
           "
         >
           <p style="text-align: justify">
-            Une nuit brute de beats underground, avec les meilleurs DJs de la
-            scène locale qui enchaînent deep house, techno, et plus encore.
-            Attendez-vous à un lieu minimaliste, des lumières tamisées, et des
-            basses puissantes qui vous feront danser jusqu'au petit matin. Pour
-            ceux qui connaissent vraiment la scène—pas de chichis, juste de la
-            musique pure. <span style="color: red">Événement 18+.</span> Entrée
-            fermée à 1h du matin, pas d'exceptions. Apportez votre énergie,
-            respectez l’espace, et faisons de cette nuit un moment inoubliable.
+            {{ event.description }}
           </p>
         </div>
       </div>
 
-      <!-- Tags -->
-      <div
-        class="col-md-3 d-flex flex-column justify-content-start p-3 align-items-stretch"
-      >
+      <!-- Categories -->
+      <div class="col-md-3 d-flex flex-column justify-content-start p-3 align-items-stretch">
         <div class="music-tags d-flex flex-column justify-content-start">
-          <span class="pill-tag">Techno</span>
-          <span class="pill-tag">House</span>
-          <span class="pill-tag">Deep House</span>
-          <span class="pill-tag">Minimal</span>
+          {% for category in event.category.split(',') %}
+            <span class="pill-tag">{{ category }}</span>
+          {% endfor %}
         </div>
       </div>
     </div>
 
-    <!-- Comments -->
+    <!-- Comments Section -->
     <div class="row mt-5">
       <div class="col-md-12">
         <h3>Comments</h3>
         <div class="mb-4">
-          <div class="card p-3 mb-3 comment-card">
-            <p class="email">@bigdog</p>
-            <p>J'aime danser!!</p>
-            <small>Posted on September 10, 2024</small>
-          </div>
-
-          <div class="card p-3 mb-3 comment-card">
-            <p class="email">@SophieXcX</p>
-            <p>some1 buy me a ticket sil vous plait???</p>
-            <small>Posted on September 12, 2024</small>
-          </div>
+          {% for comment in comments %}
+            <div class="card p-3 mb-3 comment-card">
+              <p class="username">@{{ comment.user.username }}</p>
+              <p>{{ comment.text }}</p>
+              <small>Posted on {{ comment.created_at.strftime('%B %d, %Y') }}</small>
+            </div>
+          {% else %}
+            <p>No comments yet. Be the first to comment!</p>
+          {% endfor %}
         </div>
 
-        <!-- commetn form -->
+        <!-- Comment Form -->
         <h4>Leave a Comment</h4>
-        <form>
-          <div class="mb-3">
-            <label for="email" class="form-label">Your Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="email"
-              name="email"
-              required
-            />
-          </div>
+        <form method="POST" action="{{ url_for('event_bp.add_comment', event_id=event.id) }}">
           <div class="mb-3">
             <label for="commentText" class="form-label">Your Comment</label>
             <textarea
@@ -121,8 +100,7 @@
   </div>
 </div>
 
-<!-- modal for booking tickets-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Modal for Booking Tickets -->
 <div
   class="modal fade"
   id="bookTicketsModal"
