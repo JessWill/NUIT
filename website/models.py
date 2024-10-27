@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     # Relationships
     comments = db.relationship('Comment', backref='user', lazy=True)
     bookings = db.relationship('Booking', backref='user', lazy=True)
+    created_events = db.relationship('Event', backref='creator', lazy=True)
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +23,7 @@ class Event(db.Model):
     available_tickets = db.Column(db.Integer, nullable=False)
     categories = db.Column(db.String(200), nullable=False)
     image = db.Column(db.String(100), nullable=True)  
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     # Relationships
     comments = db.relationship('Comment', backref='event', lazy=True)

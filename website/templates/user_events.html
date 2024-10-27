@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% from "bootstrap5/form.html" import render_form %}
+{% block content %}
+<!-- Main  -->
+<div class="container mt-5">
+  <div class="section-background p-4">
+    <h1 class="text-center">YOUR EVENTS</h1>
+
+    {% if events %}
+    <div class="row">
+      {% for event in events %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 event-card">
+          <!-- Event Image -->
+          <img
+            src="{{ url_for('static', filename=event.image.replace('website/static/', '')) }}"
+            alt="Event Image"
+            class="card-img-top"
+            style="max-height: 200px; object-fit: cover"
+          />
+
+          <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <p class="card-text">
+              <strong>Location:</strong> {{ event.location }}
+            </p>
+            <p class="card-text">
+              <strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d %H:%M') }}
+            </p>
+            <p class="card-text">{{ event.description }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p>You haven't created any events yet. 😥</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

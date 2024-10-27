@@ -31,6 +31,7 @@ def create_event():
             description=event_form.description.data,
             available_tickets=event_form.available_tickets.data,
             image=file_path,
+            creator_id=current_user.id,
             categories=selected_categories 
         )
 

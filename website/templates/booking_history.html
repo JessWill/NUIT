@@ -1,42 +1,51 @@
-{% extends "base.html" %} 
-{% from "bootstrap5/form.html" import render_form %}
-
+{% extends "base.html" %} {% from "bootstrap5/form.html" import render_form %}
 {% block content %}
 <!-- Main  -->
 <div class="container mt-5">
-    <div class="section-background p-4">
-        <h1 class="text-center">YOUR BOOKING HISTORY</h1>
+  <div class="section-background p-4">
+    <h1 class="text-center">YOUR BOOKING HISTORY</h1>
 
-        {% if bookings %}
-            <div class="row mt-4">
-                <!-- Event Listings -->
-                {% for booking in bookings %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 event-card">
-                        <!-- Event Image -->
-                        <img src="{{ url_for('static', filename=booking.event.image.replace('website/static/', '')) }}" 
-                             alt="Event Image" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+    {% if bookings %}
+    <div class="row mt-4">
+      <!-- Event Listings -->
+      {% for booking in bookings %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 event-card">
+          <!-- Event Image -->
+          <img
+            src="{{ url_for('static', filename=booking.event.image.replace('website/static/', '')) }}"
+            alt="Event Image"
+            class="card-img-top"
+            style="max-height: 200px; object-fit: cover"
+          />
 
-                        <!-- Card Body with Event and Booking Details -->
-                        <div class="card-body">
-                            <h3 class="card-title">{{ booking.event.name }}</h3>
-                            <p class="location text-muted"><strong>Location:</strong> {{ booking.event.location }}</p>
-                            <p><strong>Booking ID:</strong> {{ booking.id }}</p>
-                            <p><strong>Booked On:</strong> {{ booking.booking_date.strftime('%B %d, %Y %I:%M %p') }}</p>
-                            <p><strong>Quantity:</strong> {{ booking.quantity }}</p>
-                        </div>
+          <!-- Event and Booking Details -->
+          <div class="card-body">
+            <h3 class="card-title">{{ booking.event.name }}</h3>
+            <p class="location text-muted">
+              <strong>Location:</strong> {{ booking.event.location }}
+            </p>
+            <p><strong>Booking ID:</strong> {{ booking.id }}</p>
+            <p>
+              <strong>Booked On:</strong> {{ booking.booking_date.strftime('%B
+              %d, %Y %I:%M %p') }}
+            </p>
+            <p><strong>Quantity:</strong> {{ booking.quantity }}</p>
+          </div>
 
-                        <!-- Event Status -->
-                        <div class="card-footer text-center">
-                            <span class="badge bg-danger">Sold Out</span>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="text-center mt-5">What are you waiting for? Go book a party! 🥳</p>
-        {% endif %}
+          <!-- Event Status -->
+          <div class="card-footer text-center">
+            <span class="badge bg-danger">Sold Out</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
+    {% else %}
+    <p class="text-center mt-5">
+      What are you waiting for? Go book a party! 🥳
+    </p>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
