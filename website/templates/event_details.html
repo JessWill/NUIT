@@ -12,6 +12,7 @@
       </div>
 
       <!-- Book Tickets Button -->
+      {% if current_user.is_authenticated %}
       <div class="col-md-6 d-flex justify-content-end">
         <button
           class="btn btn-filter"
@@ -21,7 +22,9 @@
           Book Tickets
         </button>
       </div>
+      {% endif %}
     </div>
+
 
     <!-- Image, Description, and Tags -->
     <div class="row d-flex align-items-stretch mt-4">
@@ -76,6 +79,7 @@
         </div>
 
         <!-- Comment Form -->
+        {% if current_user.is_authenticated %}
         <h4>Leave a Comment</h4>
         <form
           method="POST"
@@ -88,6 +92,9 @@
           </div>
           {{ comment_form.submit(class="btn btn-primary") }}
         </form>
+        {% else %}
+        <p>Login or Sign Up to leave a comment.</p>
+          {% endif %}
       </div>
     </div>
   </div>
@@ -101,7 +108,7 @@
   aria-labelledby="bookTicketsModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg"> 
     <div class="modal-content" style="background-color: black; color: white">
       <div class="modal-header">
         <h5 class="modal-title" id="bookTicketsModalLabel">
@@ -115,28 +122,84 @@
           style="filter: invert(1)"
         ></button>
       </div>
+
       <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="ticketQuantity" class="form-label">Tickets</label>
-            <input
-              type="number"
-              class="form-control"
-              id="ticketQuantity"
-              name="ticketQuantity"
-              min="1"
-              value="1"
-            />
+        <div class="d-flex flex-row">
+          
+          <!-- Booking Form Section -->
+          <div class="col-md-6 pe-4"> 
+            <form>              
+              <!-- First Name -->
+              <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="first_name" 
+                       value="{{ current_user.first_name }}" required>
+              </div>
+              
+              <!-- Last Name -->
+              <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="last_name" 
+                       value="{{ current_user.last_name }}" required>
+              </div>
+              
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" 
+                       value="{{ current_user.email }}" required>
+              </div>
+              
+              <!-- Contact Number -->
+              <div class="mb-3">
+                <label for="contactNumber" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="contactNumber" name="contact_number" 
+                       value="{{ current_user.contact_number }}" required>
+              </div>
+              
+              <!-- Tickets -->
+              <div class="mb-3">
+                <label for="ticketQuantity" class="form-label">General Admission Tickets</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="ticketQuantity"
+                  name="ticketQuantity"
+                  min="1"
+                  value="1"
+                />
+              </div>
+            </form>
           </div>
-        </form>
+          
+          <!-- Event Summary Section -->
+          <div class="col-md-6 ps-4">
+            <div class="event-summary">
+              <img
+                src="{{ url_for('static', filename=event.image.replace('website/static/', '')) }}"
+                alt="Event Image"
+                class="img-fluid mb-3"
+                style="border-radius: 10px;"
+              />      
+              <h4>{{ event.name }}</h4>
+              <p><strong>Location:</strong> {{ event.location }}</p>
+              <p><strong>Date & Time:</strong> {{ event.date }}</p>
+              <p>{{ event.description }}</p>
+            </div>
+          </div>
+          
+        </div>
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="submit" class="btn btn-filter">Book Now</button>
+        <button type="submit" class="btn btn-primary">Book Now</button>
       </div>
+      
     </div>
   </div>
 </div>
+
 {% endblock %}
