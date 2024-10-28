@@ -32,7 +32,7 @@ def create_event():
             available_tickets=event_form.available_tickets.data,
             image=file_path,
             creator_id=current_user.id,
-            status="Tickets available",
+            status="Tickets Available",
             categories=selected_categories 
         )
 

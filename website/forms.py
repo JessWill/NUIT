@@ -35,7 +35,7 @@ class EventForm(FlaskForm):
         ('Tickets Available', 'Tickets Available'), 
         ('Cancelled', 'Cancelled'), 
         ('Inactive', 'Inactive'), 
-    ], validators=[InputRequired()])
+    ], default='Tickets Available')
     categories= SelectMultipleField("categories", choices=[
         ('House', 'House'), 
         ('Techno', 'Techno'), 
