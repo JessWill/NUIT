@@ -304,3 +304,19 @@ body::before {
     border-color: white;
     color: black;
 }
+
+/* Drop Downmenu */
+.dropdown-menu {
+    background-color: #000; 
+    color: #7DF9FF; 
+    border: 1px solid #7DF9FF; 
+}
+
+.form-check-label {
+    color: #ccc; 
+}
+
+.form-check-input:checked {
+    background-color: #b3186d; 
+    border-color: #b3186d;
+}
