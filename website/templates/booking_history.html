@@ -20,8 +20,8 @@
           />
 
           <!-- Event and Booking Details -->
-          <div class="card-body">
-            <h3 class="card-title">{{ booking.event.name }}</h3>
+          <div class="p-3">
+            <h5 class="card-title">{{ booking.event.name }}</h5>
             <p class="location">
               <strong>Location:</strong> {{ booking.event.location }}
             </p>
@@ -31,27 +31,27 @@
               %d, %Y %I:%M %p') }}
             </p>
             <p><strong>Ticket quantity:</strong> {{ booking.quantity }}</p>
-          </div>
-
-          <!-- Event Status -->
-          {% if booking.event.status == 'Sold Out' %}
+            <!-- Event Status -->
+            {% if booking.event.status == 'Sold Out' %}
             <span class="event-status status-sold-out">Sold Out</span>
-          {% elif booking.event.status == 'Tickets Available' %}
+            {% elif booking.event.status == 'Tickets Available' %}
             <span class="event-status status-open">Tickets Available</span>
-          {% elif booking.event.status == 'Cancelled' %}
+            {% elif booking.event.status == 'Cancelled' %}
             <span class="event-status status-cancelled">Cancelled</span>
-          {% elif booking.event.status == 'Inactive' %}
+            {% elif booking.event.status == 'Inactive' %}
             <span class="event-status status-inactive">Inactive</span>
-         {% endif %}
+            {% endif %}
+          </div>
         </div>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+      {% else %}
+      <p class="text-center mt-5">
+        What are you waiting for? Go book a party! 🥳
+      </p>
+      {% endif %}
     </div>
-    {% else %}
-    <p class="text-center mt-5">
-      What are you waiting for? Go book a party! 🥳
-    </p>
-    {% endif %}
   </div>
+  {% endblock %}
 </div>
-{% endblock %}

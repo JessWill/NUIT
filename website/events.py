@@ -25,9 +25,9 @@ def create_event():
         file.save(file_path)
 
         new_event = Event(
-            name=event_form.event_name.data,
+            name=event_form.name.data,
             location=event_form.location.data,
-            date=event_form.date_time.data,
+            date=event_form.date.data,
             description=event_form.description.data,
             available_tickets=event_form.available_tickets.data,
             image=file_path,
@@ -111,9 +111,9 @@ def update_event(event_id):
             file.save(file_path)
             event.image = f'website/static/img/{file_name}'  # Assign only the file path
 
-        event.name = event_form.event_name.data
+        event.name = event_form.name.data
         event.location = event_form.location.data
-        event.date = event_form.date_time.data
+        event.date = event_form.date.data
         event.description = event_form.description.data
         event.status = event_form.status.data
         event.available_tickets = event_form.available_tickets.data

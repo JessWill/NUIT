@@ -24,13 +24,13 @@ class RegistrationForm (FlaskForm):
 
 # Event creation form
 class EventForm(FlaskForm):
-    event_name = StringField("Event Name", validators=[InputRequired()])
+    name  = StringField("Event Name", validators=[InputRequired()])
     location = StringField("Location", validators=[InputRequired()])
-    date_time = DateTimeField("Date and Time", format='%Y-%m-%dT%H:%M', validators=[InputRequired()])
+    date = DateTimeField("Date and Time", format='%Y-%m-%dT%H:%M', validators=[InputRequired()])
     description = TextAreaField("Description", validators=[InputRequired()])
     available_tickets = IntegerField("Available Tickets", validators=[InputRequired(), NumberRange(min=1, message="Must be a positive number")])
     image = FileField("Image", validators=[InputRequired()])
-    status= SelectField("categories", choices=[
+    status= SelectField("Status", choices=[
         ('Sold Out', 'Sold Out'), 
         ('Tickets Available', 'Tickets Available'), 
         ('Cancelled', 'Cancelled'), 
