@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from flask_login import current_user, login_required
 from .forms import LoginForm, RegistrationForm, EventForm, BookingForm, CommentForm
 from .models import Event, Booking, Comment
@@ -10,7 +10,13 @@ main_bp = Blueprint('main', __name__)
 def index():
     register_form = RegistrationForm () 
     login_form = LoginForm()
-    events = Event.query.all()
+    selected_categories = request.args.getlist('categories')
+
+    if selected_categories:
+        events = Event.query.filter(Event.categories.in_(selected_categories)).all()
+    else:
+        events = Event.query.all()
+
     return render_template('index.html', register_form=register_form, login_form=login_form, events=events)
 
 #Create an event page

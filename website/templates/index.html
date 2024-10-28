@@ -16,65 +16,64 @@
                             <button class="btn btn-create me-3">Create Event +</button>
                         </a>
                     {% endif %}
-                    <div class="dropdown d-inline">
-                        <button class="btn dropdown-toggle" type="button" id="eventCategoryDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Filter
-                        </button>
-                        <ul class="dropdown-menu p-3" aria-labelledby="eventCategoryDropdown">
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="house" id="houseEvents">
-                                    <label class="form-check-label" for="houseEvents">House</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="techno" id="technoEvents">
-                                    <label class="form-check-label" for="technoEvents">Techno</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="trance" id="tranceEvents">
-                                    <label class="form-check-label" for="tranceEvents">Trance</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="dubstep" id="dubstepEvents">
-                                    <label class="form-check-label" for="dubstepEvents">Dubstep</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="drum-and-bass"
-                                        id="drumBassEvents">
-                                    <label class="form-check-label" for="drumBassEvents">Drum and Bass</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="electro" id="electroEvents">
-                                    <label class="form-check-label" for="electroEvents">Electro</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="future-bass"
-                                        id="futureBassEvents">
-                                    <label class="form-check-label" for="futureBassEvents">Future Bass</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="trap" id="trapEvents">
-                                    <label class="form-check-label" for="trapEvents">Trap</label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
 
+                    <!--Caterogires-->
+                    <div class="dropdown d-inline">
+                        <form method="GET" action="{{ url_for('main.index') }}">
+                            <button 
+                                class="btn btn-secondary dropdown-toggle" 
+                                type="button" 
+                                id="filterDropdown" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false">
+                                Filter
+                            </button>
+                            <div class="dropdown-menu p-3" aria-labelledby="filterDropdown">
+                                <!-- Checkboxes for categories -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="House" id="house">
+                                    <label class="form-check-label" for="house">House</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Techno" id="techno">
+                                    <label class="form-check-label" for="techno">Techno</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Trance" id="trance">
+                                    <label class="form-check-label" for="trance">Trance</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Dubstep</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Drum and Bass</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Electro</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Future Bass</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Trap</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Glitch Hop</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="Dubstep" id="dubstep">
+                                    <label class="form-check-label" for="dubstep">Chillwave</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-2">Apply Filter</button>
+                            </div>
+                        </form>
+                    </div>                    
                 </div>
             </div>
 
