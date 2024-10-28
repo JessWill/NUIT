@@ -40,6 +40,11 @@
 
           {% if current_user.is_authenticated %}
           <div class="d-flex ms-2">
+            <a href="{{ url_for('main.create_event') }}">
+              <button class="btn">Create Event +</button>
+            </a>
+          </div>
+          <div class="d-flex ms-2">
             <a href="{{ url_for('main.user_events') }}" class="btn"
               >My Events</a
             >
