@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
-    # Relationships
+    ## Relationships
     comments = db.relationship('Comment', backref='user', lazy=True)
     bookings = db.relationship('Booking', backref='user', lazy=True)
     created_events = db.relationship('Event', backref='creator', lazy=True)

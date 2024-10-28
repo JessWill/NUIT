@@ -28,10 +28,11 @@
           </a>
 
           <!--  search bar -->
-          <form class="d-flex mx-auto">
+          <form method="GET" action="{{ url_for('main.index') }}"class="d-flex mx-auto">
             <input
               class="form-control"
               type="search"
+              name="search"
               placeholder="Search events..."
               aria-label="Search"
               style="width: 800px"

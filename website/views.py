@@ -10,12 +10,22 @@ main_bp = Blueprint('main', __name__)
 def index():
     register_form = RegistrationForm () 
     login_form = LoginForm()
+
     selected_categories = request.args.getlist('categories')
+    search_query = request.args.get('search')
+
+    events_query = Event.query
+
+    if search_query:
+        events_query = events_query.filter(
+            (Event.name.ilike(f'%{search_query}%')) |
+            (Event.description.ilike(f'%{search_query}%'))
+        )
 
     if selected_categories:
-        events = Event.query.filter(Event.categories.in_(selected_categories)).all()
-    else:
-        events = Event.query.all()
+        events_query = events_query.filter(Event.categories.in_(selected_categories)).all()
+    
+    events = events_query.all()
 
     return render_template('index.html', register_form=register_form, login_form=login_form, events=events)
 
@@ -44,7 +54,7 @@ def booking_history():
     print("Retrieved bookings:", bookings)
     return render_template('booking_history.html', bookings=bookings)
 
-#view users created events
+#v iew users created events
 @main_bp.route('/user-events')
 @login_required
 def user_events():

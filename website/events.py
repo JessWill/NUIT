@@ -109,8 +109,8 @@ def update_event(event_id):
             file_name = secure_filename(file.filename)
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
             file.save(file_path)
-            event.image = f'website/static/img/{file_name}'  # Assign only the file path
-
+            event.image = f'website/static/img/{file_name}' 
+            
         event.name = event_form.name.data
         event.location = event_form.location.data
         event.date = event_form.date.data
