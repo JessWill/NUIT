@@ -22,7 +22,7 @@
           <!-- Event and Booking Details -->
           <div class="card-body">
             <h3 class="card-title">{{ booking.event.name }}</h3>
-            <p class="location text-muted">
+            <p class="location">
               <strong>Location:</strong> {{ booking.event.location }}
             </p>
             <p><strong>Booking ID:</strong> {{ booking.id }}</p>
@@ -30,13 +30,19 @@
               <strong>Booked On:</strong> {{ booking.booking_date.strftime('%B
               %d, %Y %I:%M %p') }}
             </p>
-            <p><strong>Quantity:</strong> {{ booking.quantity }}</p>
+            <p><strong>Ticket quantity:</strong> {{ booking.quantity }}</p>
           </div>
 
           <!-- Event Status -->
-          <div class="card-footer text-center">
-            <span class="badge bg-danger">Sold Out</span>
-          </div>
+          {% if booking.event.status == 'Sold Out' %}
+            <span class="event-status status-sold-out">Sold Out</span>
+          {% elif booking.event.status == 'Tickets Available' %}
+            <span class="event-status status-open">Tickets Available</span>
+          {% elif booking.event.status == 'Cancelled' %}
+            <span class="event-status status-cancelled">Cancelled</span>
+          {% elif booking.event.status == 'Inactive' %}
+            <span class="event-status status-inactive">Inactive</span>
+         {% endif %}
         </div>
       </div>
       {% endfor %}

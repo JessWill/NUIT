@@ -70,6 +70,11 @@
           {{ event_form.categories.label(class="form-label") }} {{
           event_form.categories(class="form-select", multiple=True) }}
         </div>
+        <!-- Status Dropdown -->
+        <div class="mb-3">
+          {{ event_form.status.label(class="form-label") }} {{
+          event_form.status(class="form-select") }}
+        </div>
       </div>
     </form>
   </div>

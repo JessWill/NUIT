@@ -22,6 +22,7 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=True)  
     available_tickets = db.Column(db.Integer, nullable=False)
     categories = db.Column(db.String(200), nullable=False)
+    status = db.Column(db.String(200), default="Tickets available", nullable=False)
     image = db.Column(db.String(100), nullable=True)  
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 

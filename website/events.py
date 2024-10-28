@@ -32,6 +32,7 @@ def create_event():
             available_tickets=event_form.available_tickets.data,
             image=file_path,
             creator_id=current_user.id,
+            status="Tickets available",
             categories=selected_categories 
         )
 
@@ -114,6 +115,7 @@ def update_event(event_id):
         event.location = event_form.location.data
         event.date = event_form.date_time.data
         event.description = event_form.description.data
+        event.status = event_form.status.data
         event.available_tickets = event_form.available_tickets.data
         event.categories = ', '.join(event_form.categories.data)
 

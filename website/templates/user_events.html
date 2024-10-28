@@ -26,11 +26,23 @@
             <p class="card-text">
               <strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d %H:%M') }}
             </p>
-            <a
+            <!-- Event Status -->
+            {% if event.status == 'Sold Out' %}
+              <span class="event-status status-sold-out">Sold Out</span>
+            {% elif event.status == 'Tickets Available' %}
+              <span class="event-status status-open">Tickets Available</span>
+            {% elif event.status == 'Cancelled' %}
+              <span class="event-status status-cancelled">Cancelled</span>
+            {% elif event.status == 'Inactive' %}
+              <span class="event-status status-inactive">Inactive</span>
+            {% endif %}
+            <div>
+              <a
               href="{{ url_for('event_bp.update_event', event_id=event.id) }}"
               class="btn btn-primary"
               >Update Event</a
             >
+            </div>
           </div>
         </div>
       </div>

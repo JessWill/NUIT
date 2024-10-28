@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectMultipleField, DateTimeField, IntegerField, FileField, HiddenField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectMultipleField, DateTimeField, IntegerField, FileField, HiddenField, SelectField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
 # creates the login information
@@ -30,6 +30,12 @@ class EventForm(FlaskForm):
     description = TextAreaField("Description", validators=[InputRequired()])
     available_tickets = IntegerField("Available Tickets", validators=[InputRequired(), NumberRange(min=1, message="Must be a positive number")])
     image = FileField("Image", validators=[InputRequired()])
+    status= SelectField("categories", choices=[
+        ('Sold Out', 'Sold Out'), 
+        ('Tickets Available', 'Tickets Available'), 
+        ('Cancelled', 'Cancelled'), 
+        ('Inactive', 'Inactive'), 
+    ], validators=[InputRequired()])
     categories= SelectMultipleField("categories", choices=[
         ('House', 'House'), 
         ('Techno', 'Techno'), 
