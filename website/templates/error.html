@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% from "bootstrap5/form.html" import render_form %}
+{% block content %}
+<!-- Main  -->
+<div class="container mt-5">
+  <div class="section-background p-4">
+    <h1>Oh no!! An error occurred. ☠️</h1>
+    <h2>Error Code: {{ error_code }}</h2>
+    <p>{{ error_message }}</p>
+  </div>
+  {% endblock %}
+</div>
