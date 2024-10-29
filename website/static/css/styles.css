@@ -156,6 +156,12 @@ body::before {
     border-radius: 10px;
 }
 
+/* description */
+.description {
+    word-wrap: break-word;
+  }
+  
+
 /* Footer */
 .footer {
     background-color: #000000 !important;

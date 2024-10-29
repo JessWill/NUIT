@@ -72,14 +72,23 @@ def post_comment(event_id):
 @login_required
 def book_event(event_id):
     form = BookingForm()
+    event = Event.query.get_or_404(event_id)
+
 
     if form.validate_on_submit():
+        tickets_booked = db.session.query(db.func.sum(Booking.quantity)).filter_by(event_id=event.id).scalar() or 0
+        tickets_booked += form.quantity.data
+
+        # if there aren no more tickets then change status to sold out
+        if tickets_booked >= event.available_tickets:
+            event.status = "Sold Out"
 
         new_booking = Booking(
              event_id =event_id,
              user_id=current_user.id,
              quantity=form.quantity.data,
         )
+
         db.session.add(new_booking)
         db.session.commit()
 
