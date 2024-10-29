@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectMultipleField, DateTimeField, IntegerField, FileField, HiddenField, SelectField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError
+from .models import Event
 
 # creates the login information
 class LoginForm(FlaskForm):
@@ -63,3 +64,11 @@ class BookingForm(FlaskForm):
     event_id = HiddenField("EventID", validators=[InputRequired()])
 
     submit = SubmitField("Book Now")
+
+    def validate_quantity(self, field):
+        event_id = self.event_id.data 
+        event = Event.query.get(event_id)
+        if field.data > event.tickets_left:
+            raise ValidationError(f"Only {event.tickets_left} tickets are left! Try booking less tickets 😭")
+        
+        

@@ -26,6 +26,12 @@ class Event(db.Model):
     image = db.Column(db.String(100), nullable=True)  
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    # the tickets left
+    @property
+    def tickets_left(self):
+        booked_tickets = sum(booking.quantity for booking in self.bookings)
+        return self.available_tickets - booked_tickets
+
     # Relationships
     comments = db.relationship('Comment', backref='event', lazy=True)
     bookings = db.relationship('Booking', backref='event', lazy=True)

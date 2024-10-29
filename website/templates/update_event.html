@@ -41,6 +41,9 @@
             {{ event_form.available_tickets.label(class="form-label") }} {{
             event_form.available_tickets(class="form-control", min="1") }}
           </div>
+          <p>
+            Available tickets cannot be set lower than {{ tickets_booked }}.
+          </p>
         </div>
 
         <!-- Description -->

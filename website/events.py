@@ -72,7 +72,9 @@ def post_comment(event_id):
 @login_required
 def book_event(event_id):
     form = BookingForm()
+
     if form.validate_on_submit():
+
         new_booking = Booking(
              event_id =event_id,
              user_id=current_user.id,
@@ -84,8 +86,8 @@ def book_event(event_id):
         flash("You're booked in 👍", "Success")
         return redirect(url_for('main.event_details', event_id=event_id))
     else:
-         flash("Booking Failed 😭", "danger")
-         print("Form errors:", form.errors)
+         for error in form.quantity.errors:
+            flash(error, "danger")
          return redirect(url_for('main.event_details', event_id=event_id))
 
 # Update  event
@@ -98,10 +100,17 @@ def update_event(event_id):
     if event.creator_id != current_user.id:
         flash("You can only edit your own events, naughty! 😡", "danger")
         return redirect(url_for('main.index'))
+    
+    #How many tickets already booked
+    tickets_booked = sum(booking.quantity for booking in event.bookings)
 
     event_form = EventForm(obj=event)  
 
     if event_form.validate_on_submit():
+        ## Is the new avaialble ticket amount less than the tickets already booked?
+        if event_form.available_tickets.data < tickets_booked:
+            flash(f"You can't set available tickets to less than the {tickets_booked} already booked!! 🙄", "danger")
+            return render_template('update_event.html', event_form=event_form, event=event, tickets_booked=tickets_booked)
 
         # Save file to img folder if it's being updated
         if event_form.image.data:
@@ -123,4 +132,4 @@ def update_event(event_id):
         flash("Event updated successfully! 💖", "success")
         return redirect(url_for('event_bp.update_event', event_id=event.id))
 
-    return render_template('update_event.html', event_form=event_form, event=event)
+    return render_template('update_event.html', event_form=event_form, event=event, tickets_booked=tickets_booked)
