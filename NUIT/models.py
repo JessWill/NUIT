@@ -26,7 +26,7 @@ class Event(db.Model):
     image = db.Column(db.String(100), nullable=True)  
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    # the tickets left
+    # tickets left
     @property
     def tickets_left(self):
         booked_tickets = sum(booking.quantity for booking in self.bookings)

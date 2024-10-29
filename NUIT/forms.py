@@ -3,14 +3,14 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, ValidationError
 from .models import Event
 
-# creates the login information
+# creates login information
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired(), Email()])
     password = PasswordField("Password", validators=[InputRequired()])
     
     submit = SubmitField("Login")
 
- # the registration form 
+ # registration form 
 class RegistrationForm (FlaskForm):
     first_name = StringField("First Name", validators=[InputRequired()])
     last_name = StringField("Last Name", validators=[InputRequired()])

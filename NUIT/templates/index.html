@@ -148,7 +148,7 @@
             <div class="event-card">
               <a href="{{ url_for('main.event_details', event_id=event.id) }}">
                 <img
-                  src="{{ url_for('static', filename='img/' + event.image.replace('website/static/img', '')) }}"
+                  src="{{ url_for('static', filename='img/' + event.image.replace('nuit/static/img', '')) }}"
                   class="img-fluid"
                   alt="{{ event.name }}"
                 />

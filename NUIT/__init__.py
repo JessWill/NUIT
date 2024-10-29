@@ -30,7 +30,7 @@ def create_app():
     login_manager.init_app(app)
 
     #upload folder path
-    UPLOAD_FOLDER = 'website/static/img'
+    UPLOAD_FOLDER = 'nuit/static/img'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     # create a user loader function takes userid and returns User

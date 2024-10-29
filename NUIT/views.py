@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 from flask_login import current_user, login_required
 from .forms import LoginForm, RegistrationForm, EventForm, BookingForm, CommentForm
 from .models import Event, Booking, Comment
+from sqlalchemy import or_
 
 main_bp = Blueprint('main', __name__)
 
@@ -23,7 +24,8 @@ def index():
         )
 
     if selected_categories:
-        events_query = events_query.filter(Event.categories.in_(selected_categories)).all()
+        category_filters = [Event.categories.ilike(f'%{category}%') for category in selected_categories]
+        events_query = events_query.filter(or_(*category_filters))
     
     events = events_query.all()
 

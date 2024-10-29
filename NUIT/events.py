@@ -67,7 +67,7 @@ def post_comment(event_id):
     comments = Comment.query.filter_by(event_id=event_id).all()
     return render_template('event_details.html', event=event, comments=comments, comment_form=form)
 
-# book  an event
+# Book tickets to the event
 @event_bp.route('/event-details/<int:event_id>/book-event', methods=['POST'])
 @login_required
 def book_event(event_id):
@@ -79,7 +79,7 @@ def book_event(event_id):
         tickets_booked = db.session.query(db.func.sum(Booking.quantity)).filter_by(event_id=event.id).scalar() or 0
         tickets_booked += form.quantity.data
 
-        # if there aren no more tickets then change status to sold out
+        # if there are no more tickets then change status to sold out
         if tickets_booked >= event.available_tickets:
             event.status = "Sold Out"
 
@@ -110,13 +110,13 @@ def update_event(event_id):
         flash("You can only edit your own events, naughty! 😡", "danger")
         return redirect(url_for('main.index'))
     
-    #How many tickets already booked
+    # How many tickets already booked
     tickets_booked = sum(booking.quantity for booking in event.bookings)
 
     event_form = EventForm(obj=event)  
 
     if event_form.validate_on_submit():
-        ## Is the new avaialble ticket amount less than the tickets already booked?
+        ## Is the new available ticket amount less than the tickets already booked?
         if event_form.available_tickets.data < tickets_booked:
             flash(f"You can't set available tickets to less than the {tickets_booked} already booked!! 🙄", "danger")
             return render_template('update_event.html', event_form=event_form, event=event, tickets_booked=tickets_booked)
@@ -127,7 +127,7 @@ def update_event(event_id):
             file_name = secure_filename(file.filename)
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
             file.save(file_path)
-            event.image = f'website/static/img/{file_name}' 
+            event.image = f'nuit/static/img/{file_name}' 
             
         event.name = event_form.name.data
         event.location = event_form.location.data
