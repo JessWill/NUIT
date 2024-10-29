@@ -10,17 +10,32 @@
         <p class="location">{{ event.location }}</p>
         <p>{{ event.date.strftime('%B %d, %Y - %I:%M %p') }}</p>
       </div>
-
-      <!-- Book Tickets Button -->
+      
+      <!-- Status + Book Tickets Button -->
       {% if current_user.is_authenticated %}
       <div class="col-md-6 d-flex justify-content-end">
-        <button
-          class="btn btn-filter"
-          data-bs-toggle="modal"
-          data-bs-target="#bookTicketsModal"
-        >
-          Book Tickets
-        </button>
+        <div class="d-flex ms-2">
+          {% if event.status == 'Sold Out' %}
+            <span class="event-status status-sold-out">Sold Out</span>
+          {% elif event.status == 'Tickets Available' %}
+            <span class="event-status status-open">Tickets Available</span>
+          {% elif event.status == 'Cancelled' %}
+            <span class="event-status status-cancelled">Cancelled</span>
+          {% elif event.status == 'Inactive' %}
+            <span class="event-status status-inactive">Inactive</span>
+          {% endif %}
+        </div>
+        {% if event.status == 'Tickets Available' %}
+        <div class="d-flex ms-2">
+          <button
+            class="btn btn-filter"
+            data-bs-toggle="modal"
+            data-bs-target="#bookTicketsModal"
+          >
+            Book Tickets
+          </button>
+        </div>
+        {% endif %}
       </div>
       {% endif %}
     </div>

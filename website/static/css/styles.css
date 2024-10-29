@@ -283,26 +283,25 @@ body::before {
 
 /* flashes */
 
-.alert {
-    max-width: 500px;
-    margin: 10px auto; 
-    background-color: #000000 !important;
-    color: white !important;
-    padding: 20px;
-    text-align: center;
-    border-top: 2px solid #7DF9FF;
-    flex-shrink: 0;
-  }
-  
- .alert-dismissible .btn-close {
-    filter: invert(1); 
-    opacity: 0.8; 
+.flash-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    width: 100%;
+    max-width: 400px;
 }
 
-.alert-dismissible .btn-close:hover {
-    background-color: #b3186d;
-    border-color: white;
-    color: black;
+.alert {
+    border-radius: 8px;
+    opacity: 0.9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
 }
 
 /* Drop Downmenu */

@@ -28,7 +28,11 @@
           </a>
 
           <!--  search bar -->
-          <form method="GET" action="{{ url_for('main.index') }}"class="d-flex mx-auto">
+          <form
+            method="GET"
+            action="{{ url_for('main.index') }}"
+            class="d-flex mx-auto"
+          >
             <input
               class="form-control"
               type="search"
@@ -120,13 +124,15 @@
                         {{ register_form.last_name(class="form-control") }}
                       </div>
                       <div class="mb-3">
-                        {{ register_form.email.label(class="form-label") }} 
-                        {{ register_form.email(class="form-control") }}
+                        {{ register_form.email.label(class="form-label") }} {{
+                        register_form.email(class="form-control") }}
                       </div>
 
                       <div class="mb-3">
-                        {{ register_form.contact_number.label(class="form-label") }} 
-                        {{ register_form.contact_number(class="form-control") }}
+                        {{
+                        register_form.contact_number.label(class="form-label")
+                        }} {{ register_form.contact_number(class="form-control")
+                        }}
                       </div>
                       <div class="mb-3">
                         {{
@@ -212,16 +218,27 @@
 
       <!-- Code for using Flask flash -->
       <div class="container-fluid">
-        {% with messages = get_flashed_messages() %} {% if messages %} {% for
-        message in get_flashed_messages() %}
-          {{message}}
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+          <div
+            class="alert alert-{{ category }} alert-dismissible fade show"
+            role="alert"
+          >
+            {{ message }}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
-        {% endfor %} {% endif %} {% endwith %}
       </div>
+      {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
       {% block header %} {% endblock %}
     </header>
-
-    {% block content %} {% endblock %}
 
     <footer class="footer bg-dark text-white text-center py-3 mt-auto">
       <p>2024 NUIT - Event Management. Jessica williams - N10194363</p>
